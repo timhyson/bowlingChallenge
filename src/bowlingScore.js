@@ -23,10 +23,26 @@ BowlingScore.prototype.makeFrameScores = function() {
 };
 
 BowlingScore.prototype.addNewBonusScore = function() {
-  if (this.rawScores[0] + this.rawScores[1] === 10) {
-    this.bonusScores.push(this.rawScores[2]);
+  for (i = 0; i < this.rawScores.length; i += 1) {
+    if (this.rawScores[i] + this.rawScores[i + 1] === 10) {
+      this.bonusScores.push(this.rawScores[i + 2])
+    };
   };
+
+  // if (this.rawScores[i] + this.rawScores[i+1] === 10) {
+  //   this.bonusScores.push(this.rawScores[i+2]);
+  //
+  //
+  //
+  // for (i = 0; i < this.frameScores.length; i += 1 ) {
+  //   if (this.frameScores[i][0] + this.frameScores[i+1][1]) {
+  //
+  //   }
+  // };
+
 };
+
+
   // this.frameScores = [[0, 0]];
   // var bonusScores = [];
   //

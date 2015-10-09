@@ -23,9 +23,9 @@ describe('BowlingScore', function() {
       expect(game.rawScores).toEqual([6, 3, 7, 2, 4, 5, 10, 0]);
     });
 
-  // });
-  //
-  // describe('frameScoresArray', function() {
+  });
+
+  describe('frameScoresArray', function() {
 
     it('restructures rawScores into makeFrameScores', function() {
       game.makeFrameScores();
