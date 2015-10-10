@@ -1,7 +1,7 @@
 describe('BowlingScore', function() {
   var game = new BowlingScore();
 
-  describe('addNewRollScore', function() {
+  describe('#addNewRollScore', function() {
 
     it('correctly pushes first frame into raw score array', function() {
       game.addNewRollScore(6);
@@ -24,13 +24,25 @@ describe('BowlingScore', function() {
 
   });
 
-  describe('makeFrameScores', function() {
+  describe('#makeFrameScores', function() {
 
-    it('restructures rawScores into makeFrameScores', function() {
+    it('restructures rawScores into frameScores', function() {
       game.makeFrameScores();
       expect(game.frameScores).toEqual([[6, 3], [7, 2], [4, 5], [10, null]]);
     });
 
+  });
+
+  describe('#makeRoundScores', function() {
+
+    it('calculates rawScores by adding frameScores to bonusScores', function() {
+      game.addNewRollScore(8);
+      game.addNewRollScore(1);
+      game.makeFrameScores();
+      game.addNewBonusScore();
+      game.makeRoundScores();
+      expect(game.roundScores).toEqual([[9], [9], [9], [19], [9]]);
+    });
   });
 
 });
