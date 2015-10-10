@@ -1,30 +1,30 @@
 describe('BowlingScore', function() {
   var game = new BowlingScore();
 
-  describe('addNewRoundScore', function() {
+  describe('addNewRollScore', function() {
 
     it('correctly pushes first frame into raw score array', function() {
-      game.addNewRoundScore(6);
-      game.addNewRoundScore(3);
+      game.addNewRollScore(6);
+      game.addNewRollScore(3);
       expect(game.rawScores).toEqual([6, 3]);
     });
 
     it('correctly pushes second frame into raw score array', function() {
-      game.addNewRoundScore(7);
-      game.addNewRoundScore(2);
-      game.addNewRoundScore(4);
-      game.addNewRoundScore(5);
+      game.addNewRollScore(7);
+      game.addNewRollScore(2);
+      game.addNewRollScore(4);
+      game.addNewRollScore(5);
       expect(game.rawScores).toEqual([6, 3, 7, 2, 4, 5]);
     });
 
     it('correctly pushes strike into raw score array', function() {
-      game.addNewRoundScore(10);
+      game.addNewRollScore(10);
       expect(game.rawScores).toEqual([6, 3, 7, 2, 4, 5, 10, null]);
     });
 
   });
 
-  describe('frameScoresArray', function() {
+  describe('makeFrameScores', function() {
 
     it('restructures rawScores into makeFrameScores', function() {
       game.makeFrameScores();
@@ -35,15 +35,15 @@ describe('BowlingScore', function() {
 
 });
 
-describe('bonus points', function() {
+describe('Bonus Points', function() {
 
   describe('spare', function() {
     var game = new BowlingScore();
 
     it('adds the points from the next roll', function() {
-      game.rawScores = [9, 1, 2];
+      game.rawScores = [9, 1, 2, 4];
       game.addNewBonusScore();
-      expect(game.bonusScores).toEqual([2]);
+      expect(game.bonusScores).toEqual([2, 0]);
     });
 
   });
@@ -51,12 +51,22 @@ describe('bonus points', function() {
   describe('strike', function() {
     var game = new BowlingScore();
 
-    it('adds the points from the next two rolls', function() {
+    it('adds the sum of the points from the next two rolls', function() {
       game.rawScores = [10, null, 2, 5];
       game.addNewBonusScore();
-      expect(game.bonusScores).toEqual([2, 5]);
+      expect(game.bonusScores).toEqual([7, 0]);
     });
 
+  });
+
+  describe('neither spare nor strike', function() {
+    var game = new BowlingScore();
+
+    it('adds 0 to the bonus points score', function() {
+      game.rawScores = [3, 2, 1, 4];
+      game.addNewBonusScore();
+      expect(game.bonusScores).toEqual([0, 0]);
+    });
   });
 
 });
