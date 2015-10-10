@@ -5,7 +5,7 @@ function BowlingScore() {
 };
 
 BowlingScore.prototype.addNewRoundScore = function(score) {
-  score === 10 ? this.rawScores.push(score, 0) : this.rawScores.push(score);
+  score === 10 ? this.rawScores.push(score, null) : this.rawScores.push(score);
 };
 
 BowlingScore.prototype.makeFrameScores = function() {
@@ -23,34 +23,13 @@ BowlingScore.prototype.makeFrameScores = function() {
 };
 
 BowlingScore.prototype.addNewBonusScore = function() {
-  for (i = 0; i < this.rawScores.length; i += 1) {
-    if (this.rawScores[i] + this.rawScores[i + 1] === 10) {
-      this.bonusScores.push(this.rawScores[i + 2])
+  for (i = 0; i < this.rawScores.length; i += 2) {
+    if (this.rawScores[i] === 10) {
+      console.log('strike');
+      this.bonusScores.push(this.rawScores[i + 2], (this.rawScores[i + 3]));
+    } else if (this.rawScores[i] + this.rawScores[i + 1] === 10) {
+      console.log('spare');
+      this.bonusScores.push(this.rawScores[i + 2]);
     };
   };
-
-  // if (this.rawScores[i] + this.rawScores[i+1] === 10) {
-  //   this.bonusScores.push(this.rawScores[i+2]);
-  //
-  //
-  //
-  // for (i = 0; i < this.frameScores.length; i += 1 ) {
-  //   if (this.frameScores[i][0] + this.frameScores[i+1][1]) {
-  //
-  //   }
-  // };
-
 };
-
-
-  // this.frameScores = [[0, 0]];
-  // var bonusScores = [];
-  //
-  // for (i = 0; i < this.frameScores.length; i += 1) {
-  //   if (this.frameScores[i].reduce === 10) {
-  //     bonusScores.push(this.frameScores[i + 1][0]);
-  //   } else {
-  //     console.log(this.frameScores);
-  //     console.log(bonusScores)
-  //   }
-  // };

@@ -1,6 +1,5 @@
-var game = new BowlingScore();
-
 describe('BowlingScore', function() {
+  var game = new BowlingScore();
 
   describe('addNewRoundScore', function() {
 
@@ -20,7 +19,7 @@ describe('BowlingScore', function() {
 
     it('correctly pushes strike into raw score array', function() {
       game.addNewRoundScore(10);
-      expect(game.rawScores).toEqual([6, 3, 7, 2, 4, 5, 10, 0]);
+      expect(game.rawScores).toEqual([6, 3, 7, 2, 4, 5, 10, null]);
     });
 
   });
@@ -29,26 +28,38 @@ describe('BowlingScore', function() {
 
     it('restructures rawScores into makeFrameScores', function() {
       game.makeFrameScores();
-      expect(game.frameScores).toEqual([[6, 3], [7, 2], [4, 5], [10, 0]]);
-    });
-
-  });
-
-  describe('spare', function() {
-
-    it('adds the points from the next roll', function() {
-      game.rawScores = [9, 1, 5];
-      game.addNewBonusScore();
-      expect(game.bonusScores).toEqual([5]);
+      expect(game.frameScores).toEqual([[6, 3], [7, 2], [4, 5], [10, null]]);
     });
 
   });
 
 });
 
-// describe('bonus points', function() {
-//
-// });
+describe('bonus points', function() {
+
+  describe('spare', function() {
+    var game = new BowlingScore();
+
+    it('adds the points from the next roll', function() {
+      game.rawScores = [9, 1, 2];
+      game.addNewBonusScore();
+      expect(game.bonusScores).toEqual([2]);
+    });
+
+  });
+
+  describe('strike', function() {
+    var game = new BowlingScore();
+
+    it('adds the points from the next two rolls', function() {
+      game.rawScores = [10, null, 2, 5];
+      game.addNewBonusScore();
+      expect(game.bonusScores).toEqual([2, 5]);
+    });
+
+  });
+
+});
 
 //
 // // a frame is made of two rolls
