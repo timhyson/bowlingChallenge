@@ -3,6 +3,7 @@ function BowlingScore() {
   this.frameScores = [];
   this.bonusScores = [];
   this.roundScores = [];
+  this.gameScore = [];
 };
 
 BowlingScore.prototype.addNewRollScore = function(score) {
@@ -26,13 +27,13 @@ BowlingScore.prototype.makeFrameScores = function() {
 BowlingScore.prototype.addNewBonusScore = function() {
   for (var i = 0; i < this.rawScores.length; i += 2) {
     if (this.rawScores[i] === 10) {
-      console.log('strike');
+      // console.log('strike');
       this.bonusScores.push(this.rawScores[i + 2] + (this.rawScores[i + 3]));
     } else if (this.rawScores[i] + this.rawScores[i + 1] === 10) {
-      console.log('spare');
+      // console.log('spare');
       this.bonusScores.push(this.rawScores[i + 2]);
     } else {
-      console.log('no bonus');
+      // console.log('no bonus');
       this.bonusScores.push(0);
     };
   };
@@ -45,4 +46,16 @@ BowlingScore.prototype.makeRoundScores = function() {
     frameBonus.push(this.bonusScores[i] + this.frameScores[i][0] + this.frameScores[i][1]);
     this.roundScores.push(frameBonus);
   };
+};
+
+BowlingScore.prototype.makeGameScore = function() {
+  var score = this.roundScores.reduce(function(a, b) {
+    return a.concat(b);
+  });
+
+  score = score.reduce(function(a, b) {
+    return a + b;
+  });
+
+  this.gameScore.push(score);
 };
